@@ -79,5 +79,12 @@ namespace NetSerializer
 			var del = serializer.GetDeserializeTrampolineFromId(id);
 			del(serializer, stream, out ob);
 		}
+
+		public static void DeserializeTyped<T>(Serializer serializer, Stream stream, out T value)
+		{
+			// Check before assigning it. This just ensures we get an InvalidCastException out instead of sending bad data.
+			Deserialize(serializer, stream, out var ob);
+			value = (T)ob;
+		}
 	}
 }
