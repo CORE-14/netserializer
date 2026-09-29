@@ -18,6 +18,16 @@ namespace NetSerializer
 {
 	static class Helpers
 	{
+		public static MethodInfo GetCheckedReader(Type type, TypeData data)
+		{
+			if (data.Type == type)
+				return data.ReaderMethodInfo;
+
+			Debug.Assert(data.Type == typeof(object));
+			return typeof(ObjectSerializer).GetMethod(nameof(ObjectSerializer.DeserializeTyped))!
+				.MakeGenericMethod(type);
+		}
+
 		public static IEnumerable<FieldInfo> GetFieldInfos(Type type)
 		{
 			Debug.Assert(type.IsSerializable, $"Type {type} is not marked as serializable");
