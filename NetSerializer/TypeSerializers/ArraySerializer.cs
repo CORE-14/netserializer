@@ -165,7 +165,7 @@ namespace NetSerializer
 			il.Emit(OpCodes.Ldloc_S, idxLocal);
 			il.Emit(OpCodes.Ldelema, elemType);
 
-			il.Emit(OpCodes.Call, data.ReaderMethodInfo);
+			il.Emit(OpCodes.Call, Helpers.GetCheckedReader(elemType, data));
 
 			// i = i + 1
 			il.Emit(OpCodes.Ldloc_S, idxLocal);

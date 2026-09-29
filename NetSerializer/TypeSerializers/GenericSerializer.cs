@@ -175,7 +175,7 @@ namespace NetSerializer
 					il.Emit(OpCodes.Ldind_Ref);
 				il.Emit(OpCodes.Ldflda, field);
 
-				il.Emit(OpCodes.Call, data.ReaderMethodInfo);
+				il.Emit(OpCodes.Call, Helpers.GetCheckedReader(fieldType, data));
 			}
 
 			if (serializer.Settings.SupportSerializationCallbacks)
